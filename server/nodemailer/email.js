@@ -23,4 +23,22 @@ export const sendVerificationEmail = async (email, verificationToken) => {
   }
 };
 
-//
+//send welcome email
+
+export const sendWelcomeEmail = async (email, name) => {
+  const recipient = [{ email }];
+  try {
+    const response = await transporter.sendMail({
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "Welcome Email",
+      template: `<!DOCTYPE html>  `,
+    });
+
+  } catch (error) {
+    console.error(`Error sending welcome email`, error);
+    throw new Error(`Error sending welcome email: ${error}`)
+  }
+}
+
+
