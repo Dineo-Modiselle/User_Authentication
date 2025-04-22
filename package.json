@@ -1,0 +1,35 @@
+{
+  "name": "user_authentication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dineo-Modiselle/User_Authentication.git"
+  },
+  "keywords": [],
+  "author": "Dineo Modiselle",
+  "type": "module",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dineo-Modiselle/User_Authentication/issues"
+  },
+  "homepage": "https://github.com/Dineo-Modiselle/User_Authentication#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.7",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
