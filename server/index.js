@@ -19,6 +19,3 @@ app.listen(3000, () => {
     connectDB();
     console.log('Server is running on port 3000');
 });
-//E2D1nbtKau9NM2FD
-//mongodb+srv://charutymodiselle:E2D1nbtKau9NM2FD@cluster0.fboeteh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-//mongodb+srv://dineomodiselle:LastDance2@cluster0.hzqih.mongodb.net/
