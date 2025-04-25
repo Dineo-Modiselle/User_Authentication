@@ -1,5 +1,7 @@
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
+
 
 function EmailVerificationPage() {
     const [code, setCode] = useState(["", "", "", "", "", ""]);
