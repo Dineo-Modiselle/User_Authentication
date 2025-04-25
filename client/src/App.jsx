@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import FloatingShape from "../src/components/FloatingShape";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -6,9 +6,34 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
 import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "./store/authStore";
+import { useEffect } from "react";
 
+//redirect authenticated users to homepage
+
+const ProtectedRoute = ({ children }) => {
+	const { isAuthenticated, user } = useAuthStore();
+
+	if (!isAuthenticated) {
+		return <Navigate to='/login' replace />;
+	}
+
+	if (!user.isVerified) {
+		return <Navigate to='/verify-email' replace />;
+	}
+
+	return children;
+};
 
 function App() {
+  const {  isCheckingAuth ,checkAuth, isAuthenticated, user } = useAuthStore();
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth])
+  console.log("isAuthenticated", isAuthenticated);
+  console.log("user", user);
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 to-emerald-900 flex items-center justify-center relative overflow-hidden">
 

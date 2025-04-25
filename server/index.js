@@ -3,12 +3,20 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./config/connectDB.js";
 import authRoutes from "./routes/authRoutes.js";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+
 //PORT
 const PORT = process.env.PORT || 5000;
+
+//CORS
+app.use(cors({  
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 
 //middlewares
 app.use(express.json());
