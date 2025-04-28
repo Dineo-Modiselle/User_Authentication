@@ -1,13 +1,14 @@
 import FloatingShape from "../src/components/FloatingShape";
+import LoadingSpinner from "./components/LoadingSpinner";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
-import LoadingSpinner from "./components/LoadingSpinner";
 
 //protect routes that require authentication
 
