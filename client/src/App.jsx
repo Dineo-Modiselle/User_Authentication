@@ -12,8 +12,6 @@ import LoadingSpinner from "./components/LoadingSpinner";
 //protect routes that require authentication
 
 const ProtectedRoute = ({ children }) => {
-
- 
   const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
@@ -39,15 +37,12 @@ const RedirectAuthenticatedUser = ({ children }) => {
 };
 
 function App() {
-
-  const { isCheckingAuth, checkAuth, isAuthenticated } = useAuthStore();
+  const { isCheckingAuth, checkAuth } = useAuthStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-  console.log("isAuthenticated", isAuthenticated);
 
-//if (isCheckingAuth) return <LoadingSpinner/>;
- 
+  if (isCheckingAuth) return <LoadingSpinner />;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 to-emerald-900 flex items-center justify-center relative overflow-hidden">
@@ -100,6 +95,10 @@ function App() {
           }
         />
         <Route path="/verify-email" element={<EmailVerificationPage />} />
+        <Route path="/forgot-password" element={ 
+          <RedirectAuthenticatedUser>
+              <ForgotPasswordPage />
+            </RedirectAuthenticatedUser>} />
       </Routes>
       <Toaster />
     </div>
