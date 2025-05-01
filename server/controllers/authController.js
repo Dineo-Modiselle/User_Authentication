@@ -9,7 +9,9 @@ import {
   sendPasswordResetEmail,
   sendResetSuccessEmail,
 } from "../nodemailer/email.js";
-import { send } from "process";
+
+
+//Signup
 
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
@@ -22,7 +24,7 @@ export const signup = async (req, res) => {
     const userAlreadyExists = await User.findOne({ email });
 
     console.log("User already exists:", userAlreadyExists);
-    
+
     if (userAlreadyExists) {
       return res
         .status(400)
@@ -45,21 +47,10 @@ export const signup = async (req, res) => {
 
     //jwt
     generateTokenAndSetCookies(res, user._id);
+
     //send verification email
 
     await sendVerificationEmail(user.email, verificationToken);
-
-    {
-      /*const mailOptions = {
-      from: process.env.SENDER_EMAIL,
-      to: email,
-      subject: "Welcome Email",
-      text: `Hello ${name},Welcome to our application! We're excited to have you on board.\n\nBest regards,\nTeam Dineo`,
-    };
-
-    await transporter.sendMail(mailOptions);
-    */
-    }
 
     res.status(201).json({
       success: true,
@@ -74,6 +65,8 @@ export const signup = async (req, res) => {
   }
 };
 
+//Email verification
+
 export const verifyEmail = async (req, res) => {
   const { code } = req.body;
   try {
@@ -82,12 +75,10 @@ export const verifyEmail = async (req, res) => {
       verificationTokenExpiresAt: { $gt: Date.now() },
     });
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Expired or invalid verification code",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Expired or invalid verification code",
+      });
     }
     user.isVerified = true;
     user.verificationToken = undefined;
@@ -111,6 +102,8 @@ export const verifyEmail = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+//Login
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -144,10 +137,14 @@ export const login = async (req, res) => {
   }
 };
 
+//Logout
+
 export const logout = async (req, res) => {
   res.clearCookie("token");
   res.status(200).json({ success: true, message: "Logged out successfully" });
 };
+
+//Forgot password
 
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -180,6 +177,8 @@ export const forgotPassword = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+// Reset password
 
 export const resetPassword = async (req, res) => {
   try {
@@ -216,17 +215,19 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-export const checkAuth = async (req,res) => {
+//Checking if user is authenticated
 
-try {
-   const user = await User.findById(req.userId).select("-password");
+export const checkAuth = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
     if (!user) {
-     return res.status(401).json({ success: false, message: "Unauthorized, User not found" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized, User not found" });
     }
-    res.status(200).json({ success: true,user});
-} catch (error) {
+    res.status(200).json({ success: true, user });
+  } catch (error) {
     console.log("Error in checking auth:", error);
     res.status(400).json({ success: false, message: error.message });
-    
-}
-}
+  }
+};

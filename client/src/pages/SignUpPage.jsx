@@ -1,35 +1,27 @@
 import { useState } from "react";
-import {Link, useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Input from "../components/Input";
-import { User, Lock, Mail, Loader } from "lucide-react"
+import { User, Lock, Mail, Loader } from "lucide-react";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { useAuthStore } from "../store/authStore";
 
-
 function SignUpPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signup, error, isLoading } = useAuthStore();
+  const navigate = useNavigate();
 
-
-    const [name,setName]=useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const { signup, error, isLoading } = useAuthStore();
-    const navigate = useNavigate();
-
-
-    const handleSignUp = async (e) => {
-     e.preventDefault();
-     try {
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
       await signup(email, password, name);
       navigate("/verify-email");
-
-     } catch (error) {
-       console.error("Error signing up:", error);
-      
-     }
-    
-    
-    };
+    } catch (error) {
+      console.error("Error signing up:", error);
+    }
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -42,46 +34,52 @@ function SignUpPage() {
           Create an Account
         </h2>
         <form onSubmit={handleSignUp}>
-            <Input
+          <Input
             icon={User}
             type="text"
             placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-        />
-  <Input
+          />
+          <Input
             icon={Mail}
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-        />
+          />
           <Input
             icon={Lock}
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-        />
-        {error &&  <p className="text-red-500 font-semibold mt-2">{error}</p>}
-        {/*PASSWORD STRENGHT METER*/}
-        <PasswordStrengthMeter password={password} /> 
+          />
+          {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
+          {/*PASSWORD STRENGHT METER*/}
+          <PasswordStrengthMeter password={password} />
 
-        <motion.button
-        className="mt-5 w-full py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 "
-        whileHover={{ scale:1.02 }}
-        whileTap={{ scale: 0.98 }}
-        type="submit"
-        disabled={isLoading}
- >
-
-{isLoading ? <Loader className="animate-spin mx-auto " size={24}/> : "Sign Up"}
-        </motion.button>
+          <motion.button
+            className="mt-5 w-full py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200 "
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Loader className="animate-spin mx-auto " size={24} />
+            ) : (
+              "Sign Up"
+            )}
+          </motion.button>
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
-        <p className="text-sm text-gray-400">Already have an account?{" "}
-            <Link to={"/login"} className="text-green-500 hover:underline">Login</Link>
+        <p className="text-sm text-gray-400">
+          Already have an account?{" "}
+          <Link to={"/login"} className="text-green-500 hover:underline">
+            Login
+          </Link>
         </p>
       </div>
     </motion.div>

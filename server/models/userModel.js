@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 //My user Model
 
 const userSchema = new mongoose.Schema(

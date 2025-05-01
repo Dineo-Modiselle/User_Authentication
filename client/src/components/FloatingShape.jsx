@@ -1,27 +1,23 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
-function FloatingShape({color, size, top, left, delay}) {
+function FloatingShape({ color, size, top, left, delay }) {
   return (
     <motion.div
-    className={`absolute rounded-full ${color} ${size} opacity-20 blur-xl ${top} ${left}`}
-    animate={{
-        y: ["0%","100%","0%"],
-        x: ["0%","100%","0%"],
+      className={`absolute rounded-full ${color} ${size} opacity-20 blur-xl ${top} ${left}`}
+      animate={{
+        y: ["0%", "100%", "0%"],
+        x: ["0%", "100%", "0%"],
         rotate: [0, 360],
-    }}
-    transition={{
+      }}
+      transition={{
         duration: 20,
         ease: "linear",
         repeat: Infinity,
         delay,
-    }}
-    aria-hidden="true"
-    
-    
-
-
+      }}
+      aria-hidden="true"
     />
-  )
+  );
 }
 
-export default FloatingShape
+export default FloatingShape;
