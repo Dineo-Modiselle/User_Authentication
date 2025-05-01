@@ -17,7 +17,7 @@ const __dirname = path.resolve();
 
 //CORS
 app.use(cors({  
-  origin: "http://localhost:5173",
+  origin: "https://user-authentication-1-fapp.onrender.com",
   credentials: true,
 }));
 
