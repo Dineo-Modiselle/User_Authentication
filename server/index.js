@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 //CORS
 app.use(cors({  
-  origin: "http://localhost:10000",
+  origin: "https://user-authentication-1-fapp.onrender.com",
   credentials: true,
 }));
 
