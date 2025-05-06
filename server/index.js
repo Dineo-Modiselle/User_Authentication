@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./config/connectDB.js";
 import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
-import path from "path";
+
 
 dotenv.config();
 
@@ -13,11 +13,10 @@ const app = express();
 //PORT
 const PORT = process.env.PORT || 5000;
 
-const __dirname = path.resolve();
 
 //CORS
 app.use(cors({  
-  origin: "https://user-authentication-1-fapp.onrender.com",
+  origin: "http://localhost:10000",
   credentials: true,
 }));
 
@@ -27,8 +26,6 @@ app.use(cookieParser());
 
 //Routes
 app.use("/api/auth", authRoutes);
-
-// Serve static files from the React frontend app
 
 
 //Server
