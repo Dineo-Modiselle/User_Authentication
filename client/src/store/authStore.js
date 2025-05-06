@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = "https://user-authentication-dwys.onrender.com";
+const API_URL = "http://localhost:10000/api/auth";
 
 axios.defaults.withCredentials = true;
 
